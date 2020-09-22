@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: myriadPro-regular;
+  src: url('../src/fonts/DKMXQK+MyriadPro-Regular.ttf');
+}
+
+@font-face {
+  font-family: myriadPro-it;
+  src: url('../src/fonts/XJENKW+MyriadPro-It.ttf');
+}
+
+@font-face {
+  font-family: minionPro-regular;
+  src: url('../src/fonts/XJENKW+MinionPro-Regular.ttf');
+}
+
+.category-title {
+  font-family: myriadPro-regular;
+  font-size: 36px;
+  letter-spacing: 3px;
+}

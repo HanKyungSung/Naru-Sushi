@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './routing/Routes';
+import AuthContextProvider from "./contexts/auth-context";
+import MenuContextProvider from "./contexts/menu-context";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MenuContextProvider>
+      <AuthContextProvider>
+        <App />
+      </AuthContextProvider>
+    </MenuContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
