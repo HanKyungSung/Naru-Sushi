@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import Cart from "../../components/statefull/Cart/Cart";
-import Login from "../../components/statefull/Login/Login";
 import { AuthContext } from "../../contexts/auth-context";
 
 import brandLogo from "../../assets/brand-logo.png";
