@@ -1,54 +1,92 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
-import Cart from "../../components/statefull/Cart/Cart";
+import Toolbar from '@material-ui/core/Toolbar';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import AppBar from '@material-ui/core/AppBar';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { AuthContext } from "../../contexts/auth-context";
 
-import brandLogo from "../../assets/brand-logo.png";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 
 import "./navigationBar.css";
 
 function NavigationBar() {
     const authContext = useContext(AuthContext);
+    const [accountDrawerToggle, setAccountDrawerToogle] = useState(false);
 
     const login = () => {
         authContext.loginUser();
     }
 
+    const logout = () => {
+        authContext.logoutUser();
+    }
+
+    const toggleAccountDrawer = (open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+        }
+
+        setAccountDrawerToogle(open);
+    }
+
+    const accountDrawerItems = () => (
+        <div className="list">
+            <List>
+                {authContext.isAuth
+                ?   <ListItem button="true" key="logout" onClick={logout}>
+                        <ListItemText primary="Logout" />
+                    </ListItem>
+                :   <React.Fragment>
+                        <ListItem button="true" key="register" component={Link} to="/register">
+                            <ListItemText primary="Sign up" />
+                        </ListItem>
+                        {/* <ListItem button="true" component={Link} to="/login" key="login"> */}
+                        <ListItem button="true" onClick={login} key="login">
+                            <ListItemText primary="Login" />
+                        </ListItem>
+                    </React.Fragment>
+                }
+            </List>
+        </div>
+    );
+    
     return (
-        <Navbar expand="lg">
-            <Navbar.Brand href="#home">
-                    <img
-                        src={brandLogo}
-                        width="60"
-                        height="30"
-                        className="d-inline-block align-top"
-                        alt="Naru Sushi Brand Logo"
-                    />
-                </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <NavDropdown title="Main" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#beverages">Beverages</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
-                        <NavDropdown title="Lunch" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                        </NavDropdown>
-                    </Nav>
-                    <Nav.Link href="#"><Cart /></Nav.Link>
-                    <Link to="/login">Login</Link>
-                    <Link to="/register">Register</Link>
-                </Navbar.Collapse>
-        </Navbar>
+        <AppBar color="default">
+            <Toolbar className="navbar">
+                <Button>
+                    Menus
+                </Button>
+                <Typography variant="h6">
+                    Naru Sushi
+                </Typography>
+                <div>
+                    <IconButton edge="start" color="inherit" aria-label="cart">
+                        <ShoppingCartIcon />
+                    </IconButton>
+                    <React.Fragment key="right">
+                        <IconButton 
+                            edge="start" 
+                            color="inherit" 
+                            aria-label="account"
+                            onClick={toggleAccountDrawer(true)}
+                        >
+                            <AccountCircleIcon />
+                        </IconButton>
+                        <Drawer anchor="right" open={accountDrawerToggle} onClose={toggleAccountDrawer(false)}>
+                            {accountDrawerItems()}
+                        </Drawer>
+                    </React.Fragment>
+                </div>
+            </Toolbar>
+        </AppBar>
     );
 }
 
