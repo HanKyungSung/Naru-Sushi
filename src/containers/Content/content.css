@@ -14,7 +14,8 @@
 
 .selectedItem {
     padding-left: 5px;
-    border-left: 3px solid transparent;
+    border-left: 4px solid grey;
+    color: black;
 }
 
 .max-width-100 { 

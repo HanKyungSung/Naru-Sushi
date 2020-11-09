@@ -61,13 +61,10 @@ function NavigationBar() {
     return (
         <AppBar color="default">
             <Toolbar className="navbar">
-                <Button>
-                    Menus
-                </Button>
                 <Typography variant="h6">
                     Naru Sushi
                 </Typography>
-                <div>
+                {/* <div>
                     <IconButton edge="start" color="inherit" aria-label="cart">
                         <ShoppingCartIcon />
                     </IconButton>
@@ -84,7 +81,7 @@ function NavigationBar() {
                             {accountDrawerItems()}
                         </Drawer>
                     </React.Fragment>
-                </div>
+                </div> */}
             </Toolbar>
         </AppBar>
     );

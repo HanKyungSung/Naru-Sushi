@@ -5,65 +5,186 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Link from '@material-ui/core/Link';
 
-import LogoPage from "../LogoPage/LogoPage";
-import Appetizer from "../Appetizer/Appetizer";
-import SaladAndSoup from "../SaladAndSoup/SaladAndSoup";
-import Alacarte from "../ALaCarte/Alacarte";
-import TOC from "../../components/TOC/TOC";
+import LogoPage from '../LogoPage/LogoPage';
+import Appetizer from '../Appetizer/Appetizer';
+import SaladAndSoup from '../SaladAndSoup/SaladAndSoup';
+import Alacarte from '../ALaCarte/Alacarte';
+import Tempuras from '../Tempuras/Tempuras';
+import Rolls from '../Rolls/Rolls';
+import SpecialRolls from '../SpecialRolls/SpecialRolls';
+import VegetarianRolls from '../VegetarianRolls/VegetarianRolls';
+import NigirisAndSashimi from '../NigirisAndSashimi/NigirisAndSashimi';
+
 import Cart from "../../components/Cart/Cart";
 
 import "./content.css";
 
 function Contents() {
     const MENU_TOP_OFFSET = 70;
-    const [listOfMenuSelections, setListOfMenuSelections] = useState([
-        "notSelectedItem"
-    ]);
-    // const [appetizerStyle, setAppetizerStyle] = useState('notSelectedItem');
+    const [listOfMenuSelections, setListOfMenuSelections] = useState(Array(8).fill("notSelectedItem"));
+
     const appetizer = useRef(null);
     const saladAndSoup = useRef(null);
     const alacarte = useRef(null);
-    const preventDefault = (event) => event.preventDefault();
+    const tempuras = useRef(null);
+    const rolls = useRef(null);
+    const specialRolls = useRef(null);
+    const vegetarianRolls = useRef(null);
+    const nigirisAndSashimi = useRef(null);
 
     useEffect(() => {
         // Add a Listener to the handleScroll function.
         window.addEventListener('scroll', handleScroll, true);
-        
     });
 
     const handleScrollTo = (event) => {
         event.preventDefault();
-        window.scrollTo(0, appetizer.current.offsetTop-MENU_TOP_OFFSET);
+        const componentId = event.currentTarget.id;
 
+        if(componentId === "appetizer")
+        {
+            window.scrollTo(0, appetizer.current.offsetTop-MENU_TOP_OFFSET);
+        }
+        else if(componentId === "saladAndSoup")
+        {
+            window.scrollTo(0, saladAndSoup.current.offsetTop-MENU_TOP_OFFSET+5);
+        }
+        else if(componentId === "alacarte")
+        {
+            window.scrollTo(0, alacarte.current.offsetTop-MENU_TOP_OFFSET+5);
+        }
+        else if(componentId === "tempuras")
+        {
+            window.scrollTo(0, tempuras.current.offsetTop-MENU_TOP_OFFSET+5);
+        }
+        else if(componentId === "rolls")
+        {
+            window.scrollTo(0, rolls.current.offsetTop-MENU_TOP_OFFSET+5);
+        }
+        else if(componentId === "specialRolls")
+        {
+            window.scrollTo(0, specialRolls.current.offsetTop-MENU_TOP_OFFSET+5);
+        }
+        else if(componentId === "vegetarianRolls")
+        {
+            window.scrollTo(0, vegetarianRolls.current.offsetTop-MENU_TOP_OFFSET+5);
+        }
+        else if(componentId === "nigirisAndSashimi")
+        {
+            window.scrollTo(0, nigirisAndSashimi.current.offsetTop-MENU_TOP_OFFSET+5);
+        }
     }
 
     const handleScroll = () => {
         const scrollY = window.scrollY;
+        const currPos = scrollY+MENU_TOP_OFFSET;
+        const newArray = [...listOfMenuSelections];
 
-        if(appetizer.current.offsetTop <= scrollY+MENU_TOP_OFFSET
-            && scrollY+MENU_TOP_OFFSET <= appetizer.current.offsetTop + appetizer.current.offsetHeight
-            && listOfMenuSelections[0] === "notSelectedItem")
+        if(appetizer.current.offsetTop <= currPos
+            && currPos <= appetizer.current.offsetTop + appetizer.current.clientHeight)
         {
-            console.log("appetizer");
-            const newArray = [];
-            newArray.fill('notSelectedItem');
-            newArray[0] = 'selectedItem';
-            setListOfMenuSelections(newArray);
-            // setAppetizerStyle('selectedItem');
+            // console.log("appetizer");
+            if(listOfMenuSelections[0] === "notSelectedItem")
+            {
+                newArray.fill('notSelectedItem');
+                newArray[0] = 'selectedItem';
+                setListOfMenuSelections(newArray);
+                // We need to remove the scroll listener to prevent listen multiple scroll listeners.
+                window.removeEventListener('scroll', handleScroll, true);
+            }
+            // Note: Event call setState hook middle of function, the function will not halt.
+            // State will be update after execute the function.
         }
-        // else
-        // {
-        //     const newArray = new Array(listOfMenuSelections.length).fill('notSelectedItem');
-        //     setListOfMenuSelections(newArray);
-        // }
-        console.log(listOfMenuSelections);
-        console.log("scroll y " + scrollY );
-        // console.log(appetizer.current.offsetTop);
-        // console.log(appetizer.current.offsetHeight);
-    }
-
-    const handleSelection = () => {
-        return 
+        else if(saladAndSoup.current.offsetTop <= currPos
+                && currPos <= saladAndSoup.current.offsetTop + saladAndSoup.current.clientHeight)
+        {
+            if(listOfMenuSelections[1] === "notSelectedItem")
+            {
+                newArray.fill("notSelectedItem");
+                newArray[1] = "selectedItem";
+                setListOfMenuSelections(newArray);
+                // We need to remove the scroll listener to prevent listen multiple scroll listeners.
+                window.removeEventListener('scroll', handleScroll, true);
+            }
+        }
+        else if(alacarte.current.offsetTop <= currPos
+                && currPos <= alacarte.current.offsetTop + alacarte.current.clientHeight)
+        {
+            if(listOfMenuSelections[2] === "notSelectedItem")
+            {
+                newArray.fill("notSelectedItem");
+                newArray[2] = "selectedItem";
+                setListOfMenuSelections(newArray);
+                // We need to remove the scroll listener to prevent listen multiple scroll listeners.
+                window.removeEventListener('scroll', handleScroll, true);
+            }
+        }
+        else if(tempuras.current.offsetTop <= currPos
+                && currPos <= tempuras.current.offsetTop + tempuras.current.clientHeight)
+        {
+            if(listOfMenuSelections[3] === "notSelectedItem")
+            {
+                newArray.fill("notSelectedItem");
+                newArray[3] = "selectedItem";
+                setListOfMenuSelections(newArray);
+                // We need to remove the scroll listener to prevent listen multiple scroll listeners.
+                window.removeEventListener('scroll', handleScroll, true);
+            }
+        }
+        else if(rolls.current.offsetTop <= currPos
+                && currPos <= rolls.current.offsetTop + rolls.current.clientHeight)
+        {
+            if(listOfMenuSelections[4] === "notSelectedItem")
+            {
+                newArray.fill("notSelectedItem");
+                newArray[4] = "selectedItem";
+                setListOfMenuSelections(newArray);
+                // We need to remove the scroll listener to prevent listen multiple scroll listeners.
+                window.removeEventListener('scroll', handleScroll, true);
+            }  
+        }
+        else if(specialRolls.current.offsetTop <= currPos
+                && currPos <= specialRolls.current.offsetTop + specialRolls.current.clientHeight)
+        {
+            if(listOfMenuSelections[5] === "notSelectedItem")
+            {
+                newArray.fill("notSelectedItem");
+                newArray[5] = "selectedItem";
+                setListOfMenuSelections(newArray);
+                // We need to remove the scroll listener to prevent listen multiple scroll listeners.
+                window.removeEventListener('scroll', handleScroll, true);
+            }  
+        }
+        else if(vegetarianRolls.current.offsetTop <= currPos
+                && currPos <= vegetarianRolls.current.offsetTop + vegetarianRolls.current.clientHeight)
+        {
+            if(listOfMenuSelections[6] === "notSelectedItem")
+            {
+                newArray.fill("notSelectedItem");
+                newArray[6] = "selectedItem";
+                setListOfMenuSelections(newArray);
+                // We need to remove the scroll listener to prevent listen multiple scroll listeners.
+                window.removeEventListener('scroll', handleScroll, true);
+            }  
+        }
+        else if(nigirisAndSashimi.current.offsetTop <= currPos
+                && currPos <= nigirisAndSashimi.current.offsetTop + nigirisAndSashimi.current.clientHeight)
+        {
+            if(listOfMenuSelections[7] === "notSelectedItem")
+            {
+                newArray.fill("notSelectedItem");
+                newArray[7] = "selectedItem";
+                setListOfMenuSelections(newArray);
+                // We need to remove the scroll listener to prevent listen multiple scroll listeners.
+                window.removeEventListener('scroll', handleScroll, true);
+            }  
+        }
+        else
+        {
+            newArray.fill('notSelectedItem');
+            setListOfMenuSelections(newArray);
+            window.removeEventListener('scroll', handleScroll, true);
+        }
     }
 
     return (
@@ -76,87 +197,77 @@ function Contents() {
                                 Menus
                             </Typography>
                         </ListItem>
-                        <ListItem dense={true} disableGutters={true} className={listOfMenuSelections[0]}>
-                        {/* <ListItem dense={true} disableGutters={true} className={appetizerStyle}> */}
+                        <ListItem dense={true} disableGutters={true}>
                             <Typography variant="body2" display="block">
-                                <Link href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
-                                    Appetizers
-                                </Link>
-                            </Typography>
-                        </ListItem>
-                        <ListItem dense={true} disableGutters={true} ref={saladAndSoup}>
-                            <Typography variant="body2" display="block">
-                                <Link href="#saladandsoup" underline="none" color="textSecondary">
-                                    Salad & Soup
+                                <Link id="appetizer" href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
+                                    <span className={listOfMenuSelections[0]}>Appetizers</span>
                                 </Link>
                             </Typography>
                         </ListItem>
                         <ListItem dense={true} disableGutters={true}>
                             <Typography variant="body2" display="block">
-                                <Link href="#" onClick={preventDefault} underline="none" color="textSecondary">
-                                    A La Carte
+                                <Link id="saladAndSoup" href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
+                                    <span className={listOfMenuSelections[1]}>Salad & Soup</span>
                                 </Link>
                             </Typography>
                         </ListItem>
                         <ListItem dense={true} disableGutters={true}>
                             <Typography variant="body2" display="block">
-                                <Link href="#" onClick={preventDefault} underline="none" color="textSecondary">
-                                    Tempuras
+                                <Link id="alacarte" href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
+                                    <span className={listOfMenuSelections[2]}>A La Carte</span>
                                 </Link>
                             </Typography>
                         </ListItem>
                         <ListItem dense={true} disableGutters={true}>
                             <Typography variant="body2" display="block">
-                                <Link href="#" onClick={preventDefault} underline="none" color="textSecondary">
-                                    Rolls
+                                <Link id="tempuras" href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
+                                <span className={listOfMenuSelections[3]}>Tempuras</span>
                                 </Link>
                             </Typography>
                         </ListItem>
                         <ListItem dense={true} disableGutters={true}>
                             <Typography variant="body2" display="block">
-                                <Link href="#" onClick={preventDefault} underline="none" color="textSecondary">
-                                    Special Rolls
+                                <Link id="rolls" href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
+                                <span className={listOfMenuSelections[4]}>Rolls</span>
                                 </Link>
                             </Typography>
                         </ListItem>
                         <ListItem dense={true} disableGutters={true}>
                             <Typography variant="body2" display="block">
-                                <Link href="#" onClick={preventDefault} underline="none" color="textSecondary">
-                                    Vegetarian Rolls
+                                <Link id="specialRolls" href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
+                                <span className={listOfMenuSelections[5]}>Special Rolls</span>
                                 </Link>
                             </Typography>
                         </ListItem>
                         <ListItem dense={true} disableGutters={true}>
                             <Typography variant="body2" display="block">
-                                <Link href="#" onClick={preventDefault} underline="none" color="textSecondary">
-                                    Nigiris
+                                <Link id="vegetarianRolls" href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
+                                <span className={listOfMenuSelections[6]}>Vegetarian Rolls</span>
                                 </Link>
                             </Typography>
                         </ListItem>
                         <ListItem dense={true} disableGutters={true}>
                             <Typography variant="body2" display="block">
-                                <Link href="#" onClick={preventDefault} underline="none" color="textSecondary">
-                                    Sashimi
+                                <Link id="nigirisAndSashimi" href="#" onClick={handleScrollTo} underline="none" color="textSecondary">
+                                <span className={listOfMenuSelections[7]}>Nigiris & Sashimi</span>
                                 </Link>
                             </Typography>
                         </ListItem>
-                        <ListItem dense={true} disableGutters={true}>
-                            <Typography variant="body2" display="block">
-                                <Link href="#" onClick={preventDefault} underline="none" color="textSecondary">
-                                    Set Dinners
-                                </Link>
-                            </Typography>
-                        </ListItem>
-                    </List>
+                    </List> 
                 </Grid>
                 <Grid item xs={8}>
                     <LogoPage />
-                    <Appetizer setAppetizerLocation={appetizer} />
-                    <SaladAndSoup setSaladAndSoupLocation={saladAndSoup} />
-                    <Alacarte setAlacarteLocation={alacarte} />
+                    <Appetizer appetizerRef={appetizer} />
+                    <SaladAndSoup saladAndSoupRef={saladAndSoup} />
+                    <Alacarte alacarteRef={alacarte} />
+                    <Tempuras tempurasRef={tempuras} />
+                    <Rolls rollsRef={rolls} />
+                    <SpecialRolls sepcialRollsRef={specialRolls} />
+                    <VegetarianRolls vegetarianRollsRef={vegetarianRolls} />
+                    <NigirisAndSashimi nigirisAndSashimiRef={nigirisAndSashimi} />
                 </Grid>
                 <Grid item xs>
-                    <Cart />
+                    {/* <Cart /> */}
                 </Grid>
             </Grid>
         </div>
