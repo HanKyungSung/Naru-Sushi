@@ -9,8 +9,12 @@ export default function AuthContextProvider(props) {
         setAuth(true);
     }
 
+    const logoutUser = () => {
+        setAuth(false);
+    }
+
     return (
-        <AuthContext.Provider value={{isAuth, loginUser}}>
+        <AuthContext.Provider value={{isAuth, loginUser, logoutUser}}>
             {props.children}
         </AuthContext.Provider>
     );

@@ -1,12 +1,11 @@
 import React from "react";
 
-import './beverages.css';
-
-const beverages = () => {
+function Cart() {
     return (
         <div>
+            Cart
         </div>
     );
 }
 
-export default beverages;
+export default Cart;
