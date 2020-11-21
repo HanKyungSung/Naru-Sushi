@@ -14,6 +14,7 @@ import { AuthContext } from "../../contexts/auth-context";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+import faviconLogo from '../../assets/nav_logo2.png';
 
 import "./navigationBar.css";
 
@@ -61,9 +62,10 @@ function NavigationBar() {
     return (
         <AppBar color="default">
             <Toolbar className="navbar">
-                <Typography variant="h6">
+                <img src={faviconLogo} height="55px" alt="naru_nav_logo" />
+                {/* <Typography variant="h6">
                     Naru Sushi
-                </Typography>
+                </Typography> */}
                 {/* <div>
                     <IconButton edge="start" color="inherit" aria-label="cart">
                         <ShoppingCartIcon />
